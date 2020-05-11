@@ -25,7 +25,7 @@ app.get("/api/notes", function (req, res) {
     return res.json(JSON.parse(fs.readFileSync("./db/db.json", "utf8")));
 });
 
-const notes = []
+let notes = []
 
 // new notes route, writes to db.json notes, pulls it back to display
 app.post("/api/notes", function (req, res) {
@@ -41,11 +41,11 @@ app.post("/api/notes", function (req, res) {
 
 // delete notes route, using unique ID element
 app.delete("/api/notes/:id", function (req, res) {
-    const id = req.params.id;
+    let id = req.params.id;
     notes = notes.filter(function (note) {
-        return note.id !== id;
+        return note.id != id;
     });
-    fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+    fs.writeFileSync("db/db.json", JSON.stringify(notes));
     return res.json(notes)
 });
 
